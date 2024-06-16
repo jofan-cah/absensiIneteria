@@ -22,6 +22,8 @@ Route::get('/dashboard', function () {
 Route::middleware(['auth'])->group(function () {
     Route::prefix('users')->group(function () {
         Route::get('/', [UsersController::class, 'index'])->name('users');
+        Route::get('/create', [UsersController::class, 'create'])->name('users.create');
+        Route::post('/create', [UsersController::class, 'store'])->name('users.post');
         Route::patch('/{id}', [UsersController::class, 'update'])->name('users.update');
         Route::delete('/{id}', [UsersController::class, 'destroy'])->name('users.destroy');
     });

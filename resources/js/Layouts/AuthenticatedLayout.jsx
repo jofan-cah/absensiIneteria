@@ -19,7 +19,7 @@ export default function Authenticated({ user, header, children }) {
             name: 'Users',
             href: route("users"),
             route: 'users',
-            active: route().current('users'),
+            active: route().current('users') || route().current('users.create') || route().current('users.update') || route().current('users.destroy'),
         },
         {
             name: 'Absensi',
