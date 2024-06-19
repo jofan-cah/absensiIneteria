@@ -22,14 +22,18 @@ class UsersController extends Controller
         return Inertia::render('Users/Create');
     }
 
-    public function store()
+    public function store(Request $request)
     {
+        // dd($request->all());
         $data = request()->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|confirmed',
             'password_confirmation' => 'required',
+            'role' => 'required',
         ]);
+
+
         User::create($data);
         return redirect()->route('users')->with('success', 'User created successfully.');
     }

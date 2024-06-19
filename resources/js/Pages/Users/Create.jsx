@@ -5,6 +5,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import SelectBox from '@/Components/SelectBox';
 
 export default function CreateUser({ auth }) {
   const { data, setData, post, processing, errors, reset } = useForm({
@@ -12,12 +13,14 @@ export default function CreateUser({ auth }) {
     email: '',
     password: '',
     password_confirmation: '',
+    role: ''
   });
 
 
   useEffect(() => {
     return () => {
-      reset('password', 'password_confirmation');
+      preserveScroll: true,
+        reset('password', 'password_confirmation');
     };
   }, []);
 
@@ -25,6 +28,7 @@ export default function CreateUser({ auth }) {
 
   const submit = (e) => {
     e.preventDefault();
+    console.log(data);
     post(route('users.post'));
   };
 
@@ -69,6 +73,34 @@ export default function CreateUser({ auth }) {
             />
 
             <InputError message={errors.email} className="mt-2" />
+          </div>
+
+          <div className="mt-4">
+            <InputLabel htmlFor="role" value="Role" />
+
+            <SelectBox
+              id="role"
+              name="role"
+              className="mt-1 block w-full"
+              value={data.role}
+              onChange={(e) => {
+                console.log('Selected Role:', e.target.value);
+                setData('role', e.target.value)
+              }}
+              required
+              options={[
+                {
+                  value: 'admin',
+                  label: 'Admin',
+                },
+                {
+                  value: 'user',
+                  label: 'User',
+                },
+              ]}
+            />
+
+            <InputError message={errors.role} className="mt-2" />
           </div>
 
           <div className="mt-4">
