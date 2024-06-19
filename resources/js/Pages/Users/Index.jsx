@@ -42,7 +42,7 @@ export default function UserIndex({ auth, users }) {
             {showAlert && (
               <div id="alert-1" className="flex items-center p-4 mb-4 text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400" role="alert">
                 <svg className="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                  <path d="M10 .5za9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
                 </svg>
                 <span className="sr-only">Info</span>
                 <div className="ms-3 text-sm font-medium">
@@ -81,10 +81,18 @@ export default function UserIndex({ auth, users }) {
                     <td className="px-6 py-3 text-left text-lg text-gray-900">{user.role}</td>
                     <td className="px-6 py-3 text-left text-lg">
                       <Link
-                        href={route('users.update', user.id)}
+                        href={route('users.edit', user.id)}
                         className="px-4 py-2 bg-green-500 hover:bg-green-700 text-white rounded-md"
                       >
                         Edit
+                      </Link>
+                      <Link
+                        href={route('users.destroy', user.id)}
+                        method="delete"
+                        as="button"
+                        className="ms-2 px-4 py-2 bg-red-500 hover:bg-red-700 text-white rounded-md"
+                      >
+                        Delete
                       </Link>
                     </td>
                   </tr>

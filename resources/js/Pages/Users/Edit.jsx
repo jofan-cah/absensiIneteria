@@ -8,14 +8,14 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import SelectBox from '@/Components/SelectBox';
 import roles from '@/data/roles.json'
 
-
-export default function CreateUser({ auth }) {
-  const { data, setData, post, processing, errors, reset } = useForm({
-    name: '',
-    email: '',
+export default function EditUser({ users, auth }) {
+  console.log('DATa' + users.id)
+  const { data, setData, patch, processing, errors, reset } = useForm({
+    name: users.name,
+    email: users.email,
     password: '',
     password_confirmation: '',
-    role: ''
+    role: users.role
   });
 
 
@@ -31,7 +31,7 @@ export default function CreateUser({ auth }) {
   const submit = (e) => {
     e.preventDefault();
     console.log(data);
-    post(route('users.post'));
+    patch(route('users.update', users.id));
   };
 
   return (
@@ -83,7 +83,7 @@ export default function CreateUser({ auth }) {
             <SelectBox
               id="role"
               name="role"
-              className="mt-1 block w-full "
+              className="mt-1 block w-full"
               value={data.role}
               onChange={(e) => {
                 console.log('Selected Role:', e.target.value);
@@ -107,7 +107,7 @@ export default function CreateUser({ auth }) {
               className="mt-1 block w-full"
               autoComplete="new-password"
               onChange={(e) => setData('password', e.target.value)}
-              required
+
             />
 
             <InputError message={errors.password} className="mt-2" />
@@ -124,7 +124,7 @@ export default function CreateUser({ auth }) {
               className="mt-1 block w-full"
               autoComplete="new-password"
               onChange={(e) => setData('password_confirmation', e.target.value)}
-              required
+
             />
 
             <InputError message={errors.password_confirmation} className="mt-2" />
